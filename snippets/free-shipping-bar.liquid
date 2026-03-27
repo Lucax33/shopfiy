@@ -1,0 +1,28 @@
+{% comment %}
+    Renders free shipping progress bar
+    Accepts:
+    - total_price: {Number} Cart total price
+    - threshold: {Number} Free shipping threshold (default 3500)
+    Usage:
+    {% render 'free-shipping-bar', total_price: cart.total_price %}
+{% endcomment %}
+
+{% liquid
+  assign threshold = settings.free_shipping_threshold | times: 100 | default: 3500
+  assign remaining = threshold | minus: total_price
+  assign progress = total_price | times: 100 | divided_by: threshold
+  if progress > 100
+    assign progress = 100
+  endif
+%}
+
+<div class="shipping-progress">
+  {% if remaining > 0 %}
+    <p class="shipping-progress__text">🚚 You're {{ remaining | money }} away from FREE shipping!</p>
+  {% else %}
+    <p class="shipping-progress__text">🎉 You've unlocked FREE shipping!</p>
+  {% endif %}
+  <div class="shipping-progress__bar">
+    <div class="shipping-progress__fill" style="width: {{ progress }}%"></div>
+  </div>
+</div>

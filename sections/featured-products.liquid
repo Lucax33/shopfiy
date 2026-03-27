@@ -1,0 +1,89 @@
+<section class="section featured-products" aria-label="Featured products">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="section-tag">✦ {{ section.settings.tag | default: 'Curated for You' }} ✦</span>
+      <h2>{{ section.settings.title | default: 'The Essentials' }}</h2>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="product-grid stagger">
+      {% assign featured = collections[section.settings.collection].products %}
+      {% if featured == blank %}
+        {% for i in (1..section.settings.limit) %}
+          {% render 'product-card', product: nil %}
+        {% endfor %}
+      {% else %}
+        {% for product in featured limit: section.settings.limit %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.collection != blank %}
+
+              <div class="product-card__quick-add">
+                <span class="btn-primary">Quick Add</span>
+              </div>
+            </a>
+
+            <h4 class="product-card__title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h4>
+
+            <div class="product-card__price">
+              {% if product.compare_at_price > product.price %}
+                <span class="price--compare">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price">{{ product.price | money }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div style="text-align: center; margin-top: var(--space-xl);">
+        <a href="{{ collections[section.settings.collection].url }}" class="btn-text">View All</a>
+      </div>
+    {% else %}
+      <p style="text-align: center; color: var(--color-text-tertiary);">Select a collection in theme settings.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Section tag",
+      "default": "Curated for You"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "The Essentials"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Products to show",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

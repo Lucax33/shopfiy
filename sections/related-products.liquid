@@ -1,0 +1,37 @@
+<section class="section" aria-label="You may also like">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">✦ You May Also Like ✦</span>
+    </div>
+    <div class="product-grid stagger">
+      {% assign related = product.collections.first.products %}
+      {% for item in related limit: 4 %}
+        {% if item.id != product.id %}
+          <div class="product-card animate-in">
+            <a href="{{ item.url }}" class="product-card__image">
+              {% if item.featured_image %}
+                <img src="{{ item.featured_image | image_url: width: 500 }}"
+                     alt="{{ item.featured_image.alt | default: item.title }}"
+                     width="400" height="533" loading="lazy">
+              {% endif %}
+            </a>
+            <h4 class="product-card__title"><a href="{{ item.url }}">{{ item.title }}</a></h4>
+            <div class="product-card__price">
+              {% if item.compare_at_price > item.price %}
+                <span class="price--compare">{{ item.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price">{{ item.price | money }}</span>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": []
+}
+{% endschema %}

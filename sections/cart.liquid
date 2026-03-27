@@ -1,0 +1,74 @@
+<section class="section cart-page">
+  <div class="container container--narrow">
+    <div class="section-header animate-in">
+      <h1>{{ 'cart.title' | t }}</h1>
+      <div class="gold-line"></div>
+    </div>
+
+    {% if cart.item_count == 0 %}
+      <div class="cart-empty animate-in">
+        <p>{{ 'cart.empty' | t | default: 'Your cart is currently empty.' }}</p>
+        <a href="{{ routes.collections_url }}" class="btn-primary btn-inline">
+          {{ 'cart.continue_shopping' | t | default: 'Continue Shopping' }}
+        </a>
+      </div>
+    {% else %}
+      <form action="{{ routes.cart_url }}" method="post" id="cart-form" class="animate-in">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item" data-item-id="{{ item.id }}">
+              <div class="cart-item__image">
+                {% if item.image %}
+                  <img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.product.title }}" width="120" height="120" loading="lazy">
+                {% endif %}
+              </div>
+              <div class="cart-item__details">
+                <h2 class="cart-item__name"><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
+                <div class="cart-item__variant">
+                  {% unless item.product.has_only_default_variant %}
+                    {% for option in item.options_with_values %}
+                      <span>{{ option.name }}: {{ option.value }}</span><br>
+                    {% endfor %}
+                  {% endunless %}
+                </div>
+                <div class="cart-item__bottom">
+                  <div class="cart-item__qty">
+                    <button type="submit" name="updates[]" value="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity">−</button>
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity">
+                    <button type="submit" name="updates[]" value="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity">+</button>
+                  </div>
+                  <div class="cart-item__price-wrapper">
+                    <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+                    <a href="{{ item.url_to_remove }}" class="cart-item__remove">{{ 'cart.remove' | t }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="cart-page__footer">
+          {% render 'free-shipping-bar', total_price: cart.total_price %}
+
+          <div class="cart-page__subtotal">
+            <span>Subtotal</span>
+            <span class="price">{{ cart.total_price | money }}</span>
+          </div>
+          <p class="cart-page__note">Taxes and shipping calculated at checkout</p>
+          
+          <div class="cart-page__actions">
+            <button type="submit" name="update" class="btn-secondary">{{ 'cart.update' | t }}</button>
+            <button type="submit" name="checkout" class="btn-primary">{{ 'cart.checkout' | t }}</button>
+          </div>
+        </div>
+      </form>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

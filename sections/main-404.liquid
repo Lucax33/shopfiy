@@ -1,0 +1,17 @@
+<section class="section animate-in" style="text-align: center; padding: 10vh 0;">
+  <div class="container--narrow">
+    <span class="section-tag">✦ 404 ✦</span>
+    <h1 style="font-size: clamp(3rem, 10vw, 6rem);">{{ '404.title' | t }}</h1>
+    <p style="margin-bottom: var(--space-xl);">{{ '404.not_found' | t }}</p>
+    <a href="{{ routes.all_products_collection_url }}" class="btn-primary btn-inline">
+      {{ '404.back_to_shopping' | t }}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "settings": []
+}
+{% endschema %}

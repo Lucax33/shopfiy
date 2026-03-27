@@ -1,0 +1,118 @@
+<section class="section" aria-label="About VELLA">
+  <div class="container">
+    <div class="about-hero animate-in">
+      <span class="section-tag">✦ Our Story ✦</span>
+      <h1>{{ section.settings.heading | default: 'The Art of Understated Elegance' }}</h1>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="about-content animate-in">
+      {% if section.settings.image %}
+        <div class="about-content__image">
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="About VELLA" loading="lazy">
+        </div>
+      {% endif %}
+      <div class="about-content__text">
+        {{ section.settings.text | default: '<p>Vella was born from a simple idea: luxury should feel effortless. We believe that true elegance isn\'t loud — it\'s in the softness of premium materials, the precision of thoughtful design, and the confidence that comes from wearing something that feels like it was made just for you.</p><p>Every piece in our collection is carefully curated to bring together comfort, quality, and timeless style. We don\'t chase trends. Instead, we focus on creating essentials that elevate your everyday — pieces you\'ll reach for again and again.</p>' }}
+      </div>
+    </div>
+
+    {% comment %} Values {% endcomment %}
+    <div class="section-header animate-in" style="margin-top: var(--space-section);">
+      <span class="section-tag">✦ Our Values ✦</span>
+    </div>
+    <div class="values-grid stagger">
+      {% for block in section.blocks %}
+        <div class="value-card animate-in" {{ block.shopify_attributes }}>
+          <div class="value-card__icon">{{ block.settings.icon | default: '✦' }}</div>
+          <h3 class="value-card__title">{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% comment %} Closing Banner {% endcomment %}
+  {% if section.settings.banner_image %}
+    <div class="about-banner animate-in">
+      <img src="{{ section.settings.banner_image | image_url: width: 1600 }}" alt="VELLA lifestyle" loading="lazy">
+      <div class="about-banner__overlay"></div>
+      <blockquote class="about-banner__quote">"{{ section.settings.banner_quote | default: 'Less Noise, More Beauty.' }}"</blockquote>
+    </div>
+  {% else %}
+    <div class="brand-statement" style="margin-top: var(--space-section);">
+      <blockquote class="brand-statement__quote">"{{ section.settings.banner_quote | default: 'Less Noise, More Beauty.' }}"</blockquote>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "About Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Art of Understated Elegance"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Story image"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Story text"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Bottom banner image"
+    },
+    {
+      "type": "text",
+      "id": "banner_quote",
+      "label": "Banner quote",
+      "default": "Less Noise, More Beauty."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon/Emoji",
+          "default": "✦"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Comfort First"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Every piece is designed with your comfort in mind."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Content",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "🤍", "title": "Comfort First", "text": "Every piece is designed with your comfort as the top priority, using premium soft-touch materials." } },
+        { "type": "value", "settings": { "icon": "✦", "title": "Quality Always", "text": "We source only the finest materials and partner with trusted manufacturers." } },
+        { "type": "value", "settings": { "icon": "🕊️", "title": "Timeless Style", "text": "Trends come and go. Our pieces are designed to be loved for years." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

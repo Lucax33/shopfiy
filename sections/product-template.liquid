@@ -1,0 +1,179 @@
+<section class="product-page">
+  <div class="container">
+    {% comment %} Breadcrumb {% endcomment %}
+    <nav class="product-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span>›</span>
+      {% if product.collections.size > 0 %}
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        <span>›</span>
+      {% endif %}
+      <span>{{ product.title }}</span>
+    </nav>
+
+    <div class="product-layout">
+      {% comment %} ===== GALLERY ===== {% endcomment %}
+      <div class="product-gallery">
+        <div class="product-gallery__layout">
+          <div class="product-gallery__main">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 900 }}"
+                   alt="{{ product.featured_image.alt | default: product.title }}"
+                   width="900" height="900" id="product-main-image">
+            {% endif %}
+          </div>
+          <div class="product-gallery__thumbs">
+            {% for image in product.images %}
+              <button class="product-gallery__thumb {% if forloop.first %}is-active{% endif %}"
+                      data-full-src="{{ image | image_url: width: 900 }}"
+                      data-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 900 }} 900w"
+                      aria-label="View image {{ forloop.index }}">
+                <img src="{{ image | image_url: width: 120 }}" alt="{{ image.alt | default: product.title }}"
+                     width="60" height="60" loading="lazy">
+              </button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      {% comment %} ===== PRODUCT INFO ===== {% endcomment %}
+      <div class="product-info">
+        <h1 class="product-info__title">{{ product.title }}</h1>
+
+        {% comment %} Rating placeholder {% endcomment %}
+        <div class="product-info__rating">
+          <span class="product-info__stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <a href="#reviews" class="product-info__review-count">({{ product.metafields.reviews.rating_count | default: '0' }} reviews)</a>
+        </div>
+
+        {% comment %} Price {% endcomment %}
+        <div class="product-info__price">
+          {% if product.compare_at_price > product.price %}
+            <span class="price--compare">{{ product.compare_at_price | money }}</span>
+            <span class="price price--sale">{{ product.price | money }}</span>
+            {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+            <span class="product-info__save">You save {{ savings }}%</span>
+          {% else %}
+            <span class="price">{{ product.price | money }}</span>
+          {% endif %}
+        </div>
+
+        {% comment %} Product Form {% endcomment %}
+        {% form 'product', product %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {% comment %} Options (Color / Size) {% endcomment %}
+          {% for option in product.options_with_values %}
+            <div class="product-option">
+              <label class="product-option__label">
+                {{ option.name }}{% if option.name == 'Color' %}: <span class="color-label">{{ option.selected_value }}</span>{% endif %}
+              </label>
+
+              {% if option.name == 'Color' %}
+                <div class="color-swatches">
+                  {% for value in option.values %}
+                    {% render 'color-swatch', value: value, active: true %}
+                  {% endfor %}
+                </div>
+              {% else %}
+                <div class="size-options">
+                  {% for value in option.values %}
+                    {% render 'size-selector', value: value, active: true, available: true %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          {% comment %} Fit Notice {% endcomment %}
+          {% if section.settings.fit_notice != blank %}
+            <div class="fit-notice">
+              ⚠️ {{ section.settings.fit_notice }}
+            </div>
+          {% endif %}
+
+          {% comment %} Quantity {% endcomment %}
+          {% render 'quantity-selector', value: 1 %}
+
+          {% comment %} Actions {% endcomment %}
+          <div class="product-actions">
+            <button type="submit" class="btn-primary" data-add-to-cart>
+              {% if product.available %}
+                Add to Cart
+              {% else %}
+                Sold Out
+              {% endif %}
+            </button>
+            {% if section.settings.show_buy_now %}
+              <button type="submit" name="checkout" class="btn-secondary" style="width:100%; margin-top: 8px;">Buy It Now</button>
+            {% endif %}
+          </div>
+        {% endform %}
+
+        {% comment %} Trust Badges {% endcomment %}
+        {% render 'trust-badges' %}
+      </div>
+    </div>
+
+    {% comment %} ===== TABS ===== {% endcomment %}
+    <div class="product-tabs">
+      <div class="product-tabs__nav" role="tablist">
+        <button class="product-tabs__btn is-active" data-tab="tab-description" role="tab" aria-selected="true">Description</button>
+        {% if section.settings.size_guide != blank %}
+          <button class="product-tabs__btn" data-tab="tab-sizeguide" role="tab">Size Guide</button>
+        {% endif %}
+        <button class="product-tabs__btn" data-tab="tab-shipping" role="tab">Shipping &amp; Returns</button>
+      </div>
+      <div class="product-tabs__content">
+        <div id="tab-description" class="product-tabs__panel is-active" role="tabpanel">
+          {{ product.description }}
+        </div>
+        {% if section.settings.size_guide != blank %}
+          <div id="tab-sizeguide" class="product-tabs__panel" role="tabpanel">
+            {{ section.settings.size_guide }}
+          </div>
+        {% endif %}
+        <div id="tab-shipping" class="product-tabs__panel" role="tabpanel">
+          {{ section.settings.shipping_info | default: '<p><strong>Shipping:</strong> Orders are processed within 1-3 business days. Standard delivery takes 7-15 business days.</p><p><strong>Returns:</strong> We offer a 30-day return policy. Items must be unworn and in original packaging.</p>' }}
+        </div>
+      </div>
+    </div>
+
+    {% comment %} Reviews anchor {% endcomment %}
+    <div id="reviews"></div>
+
+  </div>
+</section>
+
+{% comment %} Related Products {% endcomment %}
+{% section 'related-products' %}
+
+{% schema %}
+{
+  "name": "Product Template",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_buy_now",
+      "label": "Show Buy It Now button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "fit_notice",
+      "label": "Fit notice (optional)",
+      "default": "Runs small — we recommend ordering one size up"
+    },
+    {
+      "type": "richtext",
+      "id": "size_guide",
+      "label": "Size guide content"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_info",
+      "label": "Shipping & Returns info"
+    }
+  ]
+}
+{% endschema %}

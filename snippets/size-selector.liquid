@@ -1,0 +1,15 @@
+{% comment %}
+    Renders a size selector button
+    Accepts:
+    - value: {String} Variant size value
+    - active: {Boolean} Whether the option is currently active
+    - available: {Boolean} Whether the size is in stock
+    Usage:
+    {% render 'size-selector', value: value, active: true, available: true %}
+{% endcomment %}
+
+<button type="button" 
+        class="size-option {% if active %}is-active{% endif %} {% unless available %}is-unavailable{% endunless %}"
+        aria-label="Size {{ value }}">
+  {{ value }}
+</button>

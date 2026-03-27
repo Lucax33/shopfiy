@@ -1,0 +1,86 @@
+{
+  "404": {
+    "title": "404",
+    "not_found": "Page not found.",
+    "back_to_shopping": "Back to shopping"
+  },
+  "blog": {
+    "article_comments": "Comments",
+    "article_metadata_html": "{{ date }} by {{ author }}",
+    "comment_form_body": "Comment",
+    "comment_form_email": "Email",
+    "comment_form_name": "Name",
+    "comment_form_submit": "Post",
+    "comment_form_title": "Add a comment"
+  },
+  "cart": {
+    "checkout": "Checkout",
+    "title": "Your Cart",
+    "update": "Update Cart",
+    "remove": "Remove",
+    "empty": "Your cart is currently empty.",
+    "continue_shopping": "Continue Shopping",
+    "subtotal": "Subtotal"
+  },
+  "customers": {
+    "login": {
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "title": "Login"
+    }
+  },
+  "collections": {
+    "title": "Collections",
+    "items_count": "Items",
+    "sort_by": "Sort by",
+    "filter_by": "Filter by"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "card": "Gift card",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this gift card at checkout"
+  },
+  "password": {
+    "title": "This shop is private",
+    "password": "Password",
+    "enter": "Enter"
+  },
+  "products": {
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold Out",
+    "unavailable": "Unavailable",
+    "quantity": "Quantity",
+    "save": "SAVE {{ savings }}%",
+    "fit_notice": "Runs small — we recommend ordering one size up",
+    "reviews": "reviews",
+    "write_review": "Write a Review",
+    "you_may_also_like": "You May Also Like"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search articles, pages, or products",
+    "submit": "Search",
+    "no_results_html": "No results found for {{ terms }}",
+    "results_for_html": "{{ count }} results found for {{ terms }}"
+  },
+  "newsletter": {
+    "heading": "Join the Vella World",
+    "subheading": "Be the first to know about new arrivals, exclusive offers, and curated style tips.",
+    "placeholder": "Enter your email",
+    "submit": "Subscribe",
+    "success": "✓ Welcome to the Vella world. Check your inbox.",
+    "incentive": "Get 10% off your first order"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send Message",
+    "success": "✓ Thank you! We'll get back to you shortly."
+  }
+}

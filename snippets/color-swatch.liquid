@@ -1,0 +1,17 @@
+{% comment %}
+    Renders a color swatch
+    Accepts:
+    - value: {String} Variant color value
+    - active: {Boolean} Whether the swatch is currently active
+    - variant_id: {Number} Optional ID to update input
+    Usage:
+    {% render 'color-swatch', value: value, active: true %}
+{% endcomment %}
+
+<button type="button" 
+        class="color-swatch {% if active %}is-active{% endif %}"
+        data-color-name="{{ value }}"
+        {% if variant_id %}data-variant-id="{{ variant_id }}"{% endif %}
+        style="background: {{ value | handle | replace: '-', '' }};"
+        aria-label="{{ value }}">
+</button>

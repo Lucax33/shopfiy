@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "settings": {
+        "show_buy_now": true,
+        "fit_notice": "Runs small — we recommend ordering one size up"
+      }
+    }
+  },
+  "order": ["main"]
+}

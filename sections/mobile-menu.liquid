@@ -1,0 +1,31 @@
+<div class="mobile-menu__overlay" aria-hidden="true"></div>
+<nav class="mobile-menu" aria-label="Mobile navigation" role="dialog" aria-modal="true">
+  <button class="mobile-menu__close" aria-label="Close menu">&times;</button>
+  <a href="{{ routes.root_url }}" class="mobile-menu__logo">V E L L A</a>
+  <div class="gold-line" style="margin: var(--space-md) 0;"></div>
+
+  <div class="mobile-menu__links">
+    {% for link in section.settings.menu.links %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="mobile-menu__footer">
+    <div class="gold-line" style="margin: var(--space-lg) 0;"></div>
+    <a href="mailto:hello@shopvella.com">hello@shopvella.com</a>
+  </div>
+</nav>
+
+{% schema %}
+{
+  "name": "Mobile Menu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

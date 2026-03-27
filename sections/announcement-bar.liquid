@@ -1,0 +1,22 @@
+{% unless section.settings.dismissed %}
+<div class="announcement-bar" role="complementary" aria-label="Announcement">
+  <p class="announcement-bar__text">
+    ✦&nbsp; {{ section.settings.text | default: 'Free shipping on orders over $35 · 30-day returns' }} &nbsp;✦
+  </p>
+  <button class="announcement-bar__close" aria-label="Dismiss announcement">&times;</button>
+</div>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $35  ·  30-day returns"
+    }
+  ]
+}
+{% endschema %}

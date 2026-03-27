@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Quiet Luxury, Everyday.",
+        "subheading": "Curated essentials for the woman who values comfort and elegance.",
+        "cta_text": "Shop the Collection"
+      }
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "tag": "Curated for You",
+        "title": "The Essentials",
+        "limit": 3
+      }
+    },
+    "brand-statement": {
+      "type": "brand-statement",
+      "settings": {
+        "quote": "We believe luxury should feel effortless. Every piece is curated for comfort, quality, and timeless style.",
+        "author": "VELLA"
+      }
+    },
+    "category-grid": {
+      "type": "category-grid",
+      "settings": {
+        "tag": "Collections",
+        "title": "Shop by Mood"
+      },
+      "blocks": {
+        "cat1": { "type": "category", "settings": { "title": "Comfort" } },
+        "cat2": { "type": "category", "settings": { "title": "Active" } },
+        "cat3": { "type": "category", "settings": { "title": "Sleepwear" } },
+        "cat4": { "type": "category", "settings": { "title": "Essentials" } }
+      },
+      "block_order": ["cat1", "cat2", "cat3", "cat4"]
+    },
+    "instagram": {
+      "type": "instagram-grid",
+      "settings": {
+        "handle": "@SHOPVELLA",
+        "title": "The Vella Community"
+      },
+      "blocks": {
+        "ig1": { "type": "image" },
+        "ig2": { "type": "image" },
+        "ig3": { "type": "image" },
+        "ig4": { "type": "image" },
+        "ig5": { "type": "image" },
+        "ig6": { "type": "image" }
+      },
+      "block_order": ["ig1", "ig2", "ig3", "ig4", "ig5", "ig6"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the Vella World",
+        "subheading": "Be the first to know about new arrivals, exclusive offers, and curated style tips.",
+        "incentive": "Get 10% off your first order"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-products",
+    "brand-statement",
+    "category-grid",
+    "instagram",
+    "newsletter"
+  ]
+}

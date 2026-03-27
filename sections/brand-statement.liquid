@@ -1,0 +1,31 @@
+<section class="brand-statement animate-in" aria-label="Brand statement">
+  <blockquote class="brand-statement__quote">
+    "{{ section.settings.quote | default: 'We believe luxury should feel effortless. Every piece is curated for comfort, quality, and timeless style.' }}"
+  </blockquote>
+  <p class="brand-statement__author">— {{ section.settings.author | default: 'VELLA' }}</p>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Statement",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote text",
+      "default": "We believe luxury should feel effortless. Every piece is curated for comfort, quality, and timeless style."
+    },
+    {
+      "type": "text",
+      "id": "author",
+      "label": "Attribution",
+      "default": "VELLA"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Statement"
+    }
+  ]
+}
+{% endschema %}

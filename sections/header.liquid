@@ -1,0 +1,50 @@
+<div class="header-wrapper">
+  <header class="site-header" role="banner">
+    {% comment %} Left: Hamburger + Nav {% endcomment %}
+    <div class="header__left">
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="header__nav" aria-label="Main navigation">
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+
+    {% comment %} Center: Logo {% endcomment %}
+    <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }} — Home">
+      V E L L A
+    </a>
+
+    {% comment %} Right: Icons {% endcomment %}
+    <div class="header-actions">
+      <button class="header-icon" aria-label="Search">
+        {% render 'icon', name: 'search' %}
+      </button>
+      <a href="/account" class="header-icon" aria-label="Account">
+        {% render 'icon', name: 'account' %}
+      </a>
+      <button class="header-icon" data-cart-toggle aria-label="Cart">
+        {% render 'icon', name: 'cart' %}
+        {% if cart.item_count > 0 %}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </button>
+    </div>
+  </header>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

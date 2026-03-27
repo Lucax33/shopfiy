@@ -1,0 +1,15 @@
+{% style %}
+  :root {
+    --color-accent: {{ settings.color_accent | default: '#C4A265' }};
+    --color-bg-primary: {{ settings.color_background | default: '#FDFBF8' }};
+    --color-text-primary: {{ settings.color_text | default: '#3D3229' }};
+    
+    {% comment %} Font settings from shopify font picker if used {% endcomment %}
+    {% if settings.type_heading_font %}
+      --font-heading: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+    {% endif %}
+    {% if settings.type_body_font %}
+      --font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    {% endif %}
+  }
+{% endstyle %}

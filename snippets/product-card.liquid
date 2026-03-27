@@ -1,0 +1,51 @@
+{% comment %}
+    Renders a product card
+    Accepts:
+    - product: {Object} Product object
+    Usage:
+    {% render 'product-card', product: product %}
+{% endcomment %}
+
+<div class="product-card animate-in">
+  <a href="{{ product.url }}" class="product-card__image">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 600 | image_tag: 
+         widths: '300, 450, 600',
+         sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw',
+         alt: product.title,
+         class: 'img-zoom',
+         loading: 'lazy'
+      }}
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+
+    {% if product.compare_at_price > product.price %}
+      {% assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+      <span class="product-card__badge">SAVE {{ savings }}%</span>
+    {% endif %}
+
+    <div class="product-card__quick-add">
+      <span class="btn-primary">Quick View</span>
+    </div>
+  </a>
+
+  <h4 class="product-card__title">
+    <a href="{{ product.url }}">{{ product.title }}</a>
+  </h4>
+
+  <div class="product-card__price">
+    {% render 'price', product: product %}
+  </div>
+
+  {% comment %} Color swatches if any {% endcomment %}
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Color' %}
+      <div class="product-card__swatches">
+        {% for value in option.values limit: 5 %}
+          <div class="product-card__swatch" style="background: {{ value | handle | replace: '-', '' }};" title="{{ value }}"></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,25 @@
+{% comment %}
+    Renders a price
+    Accepts:
+    - product: {Object} Product object
+    Usage:
+    {% render 'price', product: product %}
+{% endcomment %}
+
+{% liquid
+  assign price = product.price
+  assign compare_at_price = product.compare_at_price
+  assign on_sale = false
+  if compare_at_price > price
+    assign on_sale = true
+  endif
+%}
+
+<div class="price-wrapper">
+  {% if on_sale %}
+    <span class="price--compare">{{ compare_at_price | money }}</span>
+    <span class="price price--sale">{{ price | money }}</span>
+  {% else %}
+    <span class="price">{{ price | money }}</span>
+  {% endif %}
+</div>

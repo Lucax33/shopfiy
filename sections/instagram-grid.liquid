@@ -1,0 +1,77 @@
+<section class="section" aria-label="Instagram">
+  <div class="section-header animate-in">
+    <span class="section-tag">✦ {{ section.settings.handle | default: '@SHOPVELLA' }} ✦</span>
+    <h2>{{ section.settings.title | default: 'The Vella Community' }}</h2>
+  </div>
+
+  <div class="instagram-grid">
+    {% for block in section.blocks %}
+      <div class="instagram-grid__item" {{ block.shopify_attributes }}>
+        {% if block.settings.image %}
+          <img src="{{ block.settings.image | image_url: width: 400 }}" alt="Instagram post" width="400" height="400" loading="lazy">
+        {% else %}
+          <div style="background: linear-gradient(135deg, var(--color-blush), var(--color-sand)); width:100%; height:100%;"></div>
+        {% endif %}
+        <div class="instagram-grid__item__overlay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div style="text-align: center; margin-top: var(--space-xl);">
+    <a href="{{ section.settings.instagram_url | default: '#' }}" class="btn-text" target="_blank" rel="noopener">Follow Us on Instagram</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Instagram handle",
+      "default": "@SHOPVELLA"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "The Vella Community"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Instagram Grid",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

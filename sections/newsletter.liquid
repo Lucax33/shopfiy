@@ -1,0 +1,58 @@
+<section class="newsletter section--dark" aria-label="Newsletter signup">
+  <div class="container container--narrow">
+    <div class="section-header animate-in">
+      <h2>{{ section.settings.heading | default: 'Join the Vella World' }}</h2>
+      <p>{{ section.settings.subheading | default: 'Be the first to know about new arrivals, exclusive offers, and curated style tips.' }}</p>
+    </div>
+
+    <div class="newsletter__form animate-in">
+      {% form 'customer', class: 'newsletter__form-el' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" name="contact[email]" class="newsletter__input"
+               placeholder="{{ section.settings.placeholder | default: 'Enter your email' }}"
+               aria-label="Email address" required autocomplete="email">
+        <button type="submit" class="newsletter__submit">Subscribe</button>
+      {% endform %}
+    </div>
+
+    <p class="newsletter__success">✓ Welcome to the Vella world. Check your inbox.</p>
+    <p class="newsletter__incentive animate-in">{{ section.settings.incentive | default: 'Get 10% off your first order' }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the Vella World"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Be the first to know about new arrivals, exclusive offers, and curated style tips."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "incentive",
+      "label": "Incentive text",
+      "default": "Get 10% off your first order"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}
