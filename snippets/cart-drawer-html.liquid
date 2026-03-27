@@ -1,0 +1,60 @@
+{% comment %}
+  Cart drawer HTML rendered as snippet in layout/theme.liquid
+  to avoid Shopify 404 issues caused by standalone section calls in layouts.
+{% endcomment %}
+
+<div class="cart-drawer__overlay" aria-hidden="true"></div>
+<aside class="cart-drawer" aria-label="Shopping cart" role="dialog" aria-modal="true">
+  <div class="cart-drawer__header">
+    <h2 class="cart-drawer__title">Your Cart ({{ cart.item_count }})</h2>
+    <button class="cart-drawer__close" aria-label="Close cart">&times;</button>
+  </div>
+
+  <div class="cart-drawer__items">
+    {% if cart.item_count == 0 %}
+      <div class="cart-empty">
+        <p>Your cart is empty</p>
+        <a href="{{ routes.collections_url }}" class="btn-primary btn-inline">Shop Now</a>
+      </div>
+    {% else %}
+      {% for item in cart.items %}
+        <div class="cart-item">
+          <div class="cart-item__image">
+            {% if item.image %}
+              <img src="{{ item.image | image_url: width: 120 }}" alt="{{ item.title }}" width="60" height="60" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="cart-item__details">
+            <div class="cart-item__name">{{ item.product.title }}</div>
+            <div class="cart-item__variant">
+              {% if item.variant.title != 'Default Title' %}{{ item.variant.title }}{% endif %}
+            </div>
+            <div class="cart-item__bottom">
+              <div class="cart-item__qty">
+                <button aria-label="Decrease quantity">−</button>
+                <span>{{ item.quantity }}</span>
+                <button aria-label="Increase quantity">+</button>
+              </div>
+              <span class="cart-item__price">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  {% if cart.item_count > 0 %}
+    <div class="cart-drawer__footer">
+      {% render 'free-shipping-bar', total_price: cart.total_price %}
+
+      <div class="cart-drawer__subtotal">
+        <span>Subtotal</span>
+        <span>{{ cart.total_price | money }}</span>
+      </div>
+
+      <a href="{{ routes.cart_url }}" class="btn-primary cart-drawer__checkout">
+        Checkout — {{ cart.total_price | money }}
+      </a>
+    </div>
+  {% endif %}
+</aside>

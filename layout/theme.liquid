@@ -13,8 +13,9 @@
     {% comment %} Theme CSS {% endcomment %}
     {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
 
-    {% comment %} Meta tags {% endcomment %}
+    {% comment %} Meta + SEO tags {% endcomment %}
     {% render 'meta-tags' %}
+    {% render 'css-variables' %}
 
     {{ content_for_header }}
   </head>
@@ -22,19 +23,22 @@
   <body>
     <a href="#main-content" class="skip-to-content">Skip to content</a>
 
+    {% comment %} Header section group {% endcomment %}
     {% sections 'header-group' %}
 
+    {% comment %} Page content {% endcomment %}
     <main id="main-content" role="main">
       {{ content_for_layout }}
     </main>
 
+    {% comment %} Footer section group {% endcomment %}
     {% sections 'footer-group' %}
 
-    {% comment %} Cart Drawer {% endcomment %}
-    {% section 'cart-drawer' %}
+    {% comment %} Cart Drawer — snippet (not section) {% endcomment %}
+    {%- render 'cart-drawer-html' -%}
 
-    {% comment %} Mobile Menu {% endcomment %}
-    {% section 'mobile-menu' %}
+    {% comment %} Mobile Menu — snippet (not section) {% endcomment %}
+    {%- render 'mobile-menu-html' -%}
 
     {% comment %} Theme JS — deferred {% endcomment %}
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
