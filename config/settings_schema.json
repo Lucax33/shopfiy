@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "name": "theme_info",
+    "theme_name": "VELLA",
+    "theme_version": "1.0.0",
+    "theme_author": "VELLA Team",
+    "theme_documentation_url": "https://shopvella.com",
+    "theme_support_url": "https://shopvella.com/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary colors"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "default": "#C4A265",
+        "label": "Accent color (gold)"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "default": "#FDFBF8",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "default": "#3D3229",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "default": "cormorant_garamond_n3",
+        "label": "Heading font"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "dm_sans_n3",
+        "label": "Body font"
+      }
+    ]
+  },
+  {
+    "name": "Free Shipping",
+    "settings": [
+      {
+        "type": "range",
+        "id": "free_shipping_threshold",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "$",
+        "label": "Free shipping threshold",
+        "default": 35
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL",
+        "default": "https://instagram.com/shopvella"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest URL"
+      }
+    ]
+  }
+]

@@ -59,31 +59,49 @@
         </div>
 
         {% comment %} Product Form {% endcomment %}
-        {% form 'product', product %}
+        {% form 'product', product, id: 'product-form' %}
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          <script id="product-variants-json" type="application/json">
+            {{ product.variants | json }}
+          </script>
 
           {% comment %} Options (Color / Size) {% endcomment %}
-          {% for option in product.options_with_values %}
-            <div class="product-option">
-              <label class="product-option__label">
-                {{ option.name }}{% if option.name == 'Color' %}: <span class="color-label">{{ option.selected_value }}</span>{% endif %}
-              </label>
+          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+              {% assign option_key = 'option' | append: forloop.index %}
+              <div class="product-option">
+                <label class="product-option__label">
+                  {{ option.name }}{% if option.name == 'Color' or option.name == 'Colour' %}: <span class="color-label">{{ option.selected_value }}</span>{% endif %}
+                </label>
 
-              {% if option.name == 'Color' %}
-                <div class="color-swatches">
-                  {% for value in option.values %}
-                    {% render 'color-swatch', value: value, active: true %}
-                  {% endfor %}
-                </div>
-              {% else %}
-                <div class="size-options">
-                  {% for value in option.values %}
-                    {% render 'size-selector', value: value, active: true, available: true %}
-                  {% endfor %}
-                </div>
-              {% endif %}
-            </div>
-          {% endfor %}
+                {% if option.name == 'Color' or option.name == 'Colour' %}
+                  <div class="color-swatches">
+                    {% for value in option.values %}
+                      <button type="button" 
+                              class="color-swatch {% if option.selected_value == value %}is-active{% endif %}" 
+                              data-option-key="{{ option_key }}" 
+                              data-color-name="{{ value | escape }}"
+                              aria-label="Select {{ value | escape }}"
+                              style="background-color: {{ value | downcase | replace: ' ', '' }};">
+                      </button>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  <div class="size-options">
+                    {% for value in option.values %}
+                      <button type="button"
+                              class="size-option {% if option.selected_value == value %}is-active{% endif %}"
+                              data-option-key="{{ option_key }}"
+                              data-value="{{ value | escape }}">
+                        {{ value }}
+                      </button>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          {% endunless %}
 
           {% comment %} Fit Notice {% endcomment %}
           {% if section.settings.fit_notice != blank %}
@@ -93,12 +111,16 @@
           {% endif %}
 
           {% comment %} Quantity {% endcomment %}
-          {% render 'quantity-selector', value: 1 %}
+          <div class="quantity-selector">
+            <button type="button" data-qty-minus aria-label="Decrease quantity">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="Quantity">
+            <button type="button" data-qty-plus aria-label="Increase quantity">+</button>
+          </div>
 
           {% comment %} Actions {% endcomment %}
           <div class="product-actions">
-            <button type="submit" class="btn-primary" data-add-to-cart>
-              {% if product.available %}
+            <button type="button" class="btn-primary" data-add-to-cart {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+              {% if product.selected_or_first_available_variant.available %}
                 Add to Cart
               {% else %}
                 Sold Out
@@ -120,9 +142,9 @@
       <div class="product-tabs__nav" role="tablist">
         <button class="product-tabs__btn is-active" data-tab="tab-description" role="tab" aria-selected="true">Description</button>
         {% if section.settings.size_guide != blank %}
-          <button class="product-tabs__btn" data-tab="tab-sizeguide" role="tab">Size Guide</button>
+          <button class="product-tabs__btn" data-tab="tab-sizeguide" role="tab" aria-selected="false">Size Guide</button>
         {% endif %}
-        <button class="product-tabs__btn" data-tab="tab-shipping" role="tab">Shipping &amp; Returns</button>
+        <button class="product-tabs__btn" data-tab="tab-shipping" role="tab" aria-selected="false">Shipping &amp; Returns</button>
       </div>
       <div class="product-tabs__content">
         <div id="tab-description" class="product-tabs__panel is-active" role="tabpanel">
