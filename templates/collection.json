@@ -1,11 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "collection-template",
+      "disabled": true,
       "settings": {
         "products_per_page": 16
       }
+    },
+    "category_grid_6zxzeq": {
+      "type": "category-grid",
+      "blocks": {
+        "category_EwJH8d": {
+          "type": "category",
+          "settings": {
+            "title": "Comfort",
+            "link": ""
+          }
+        },
+        "category_yMT6i8": {
+          "type": "category",
+          "settings": {
+            "title": "Active",
+            "link": ""
+          }
+        },
+        "category_pAQXij": {
+          "type": "category",
+          "settings": {
+            "title": "Sleepwear",
+            "link": ""
+          }
+        },
+        "category_fPg4Te": {
+          "type": "category",
+          "settings": {
+            "title": "Essentials",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_EwJH8d",
+        "category_yMT6i8",
+        "category_pAQXij",
+        "category_fPg4Te"
+      ],
+      "name": "Category Grid",
+      "settings": {
+        "tag": "Collections",
+        "title": "Shop by Mood"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "category_grid_6zxzeq"
+  ]
 }
