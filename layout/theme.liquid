@@ -34,11 +34,11 @@
     {% comment %} Footer section group {% endcomment %}
     {% sections 'footer-group' %}
 
-    {% comment %} Cart Drawer — snippet (not section) {% endcomment %}
-    {%- render 'cart-drawer-html' -%}
+    {% comment %} Cart Drawer — Section (for AJAX refresh) {% endcomment %}
+    {% section 'cart-drawer' %}
 
-    {% comment %} Mobile Menu — snippet (not section) {% endcomment %}
-    {%- render 'mobile-menu-html' -%}
+    {% comment %} Mobile Menu — Section {% endcomment %}
+    {% section 'mobile-menu' %}
 
     {% comment %} Theme JS — deferred {% endcomment %}
     <script src="{{ 'theme.js' | asset_url }}" defer></script>

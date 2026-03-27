@@ -3,7 +3,11 @@
     "color_accent": "#C4A265",
     "color_background": "#FDFBF8",
     "color_text": "#3D3229",
+    "type_heading_font": "cormorant_garamond_n3",
+    "type_body_font": "dm_sans_n3",
     "free_shipping_threshold": 35,
-    "social_instagram": "https://instagram.com/shopvella"
+    "social_instagram": "https://instagram.com/shopvella",
+    "social_tiktok": "https://tiktok.com/@shopvella",
+    "social_pinterest": "https://pinterest.com/shopvella"
   }
 }

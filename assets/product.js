@@ -230,23 +230,39 @@ document.addEventListener('DOMContentLoaded', () => {
      ======================== */
   async function refreshCart() {
     try {
-      const res = await fetch('/cart.js');
-      const cart = await res.json();
+      // 1. Fetch updated section content for the cart drawer
+      const res = await fetch('/?sections=cart-drawer');
+      const data = await res.json();
+      const html = data['cart-drawer'];
 
-      // Update count badges
+      if (html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Extract the interior content (cart-drawer items and footer)
+        const newDrawer = doc.querySelector('.cart-drawer');
+        const currentDrawer = document.querySelector('.cart-drawer');
+        
+        if (newDrawer && currentDrawer) {
+          currentDrawer.innerHTML = newDrawer.innerHTML;
+        }
+      }
+
+      // 2. Open drawer and update count
+      const drawer = document.querySelector('.cart-drawer');
+      const overlay = document.querySelector('.cart-drawer__overlay');
+      if (drawer) {
+        drawer.classList.add('is-open');
+        overlay?.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      const cartRes = await fetch('/cart.js');
+      const cart = await cartRes.json();
       document.querySelectorAll('.cart-count').forEach(el => {
         el.textContent = cart.item_count;
         el.style.display = cart.item_count > 0 ? 'flex' : 'none';
       });
 
-      // Open cart drawer if it exists
-      const drawer = document.querySelector('.cart-drawer');
-      const overlay = document.querySelector('.cart-drawer__overlay');
-      if (drawer) {
-        drawer.classList.add('is-open');
-        if (overlay) overlay.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-      }
     } catch (e) {
       console.error('Cart refresh error', e);
     }
